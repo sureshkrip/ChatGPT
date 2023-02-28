@@ -11,5 +11,15 @@ def has_non_ascii_chars(s):
 
 udf_has_non_ascii_chars = udf(has_non_ascii_chars, BooleanType())
 
+2/28/2023
 # assuming your DataFrame has a column called 'text'
 df_filtered = df.filter(~udf_has_non_ascii_chars('text'))
+
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("ReadCSV").getOrCreate()
+
+df = spark.read.format("csv").option("header", "true").option("charset", "ascii").load("path/to/csv/file.csv")
+
+df.show()
+
