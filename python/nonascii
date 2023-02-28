@@ -23,3 +23,18 @@ df = spark.read.format("csv").option("header", "true").option("charset", "ascii"
 
 df.show()
 
+
+from pyspark.sql import SparkSession
+import codecs
+
+spark = SparkSession.builder.appName("ReadCSV").getOrCreate()
+
+try:
+    with codecs.open("path/to/csv/file.csv", "r", encoding="utf-8") as f:
+        df = spark.read.csv(f, header=True)
+except UnicodeDecodeError as e:
+    raise Exception("Error reading CSV file: %s" % str(e))
+
+df.show()
+
+
