@@ -1,0 +1,129 @@
+{
+    "containerDefinitions": [
+      {
+        "name": "jupyterhub",
+        "image": "jupyterhub/jupyterhub",
+        "portMappings": [
+          {
+            "containerPort": 8000,
+            "hostPort": 0,
+            "protocol": "tcp"
+          },
+          {
+            "containerPort": 8001,
+            "hostPort": 0,
+            "protocol": "tcp"
+          }
+        ],
+        "mountPoints": [
+          {
+            "containerPath": "/srv/jupyterhub",
+            "sourceVolume": "jupyterhub"
+          }
+        ],
+        "environment": [
+          {
+            "name": "JUPYTERHUB_BIND_URL",
+            "value": "http://0.0.0.0:8000"
+          },
+          {
+            "name": "JUPYTERHUB_SSL_KEY",
+            "value": "/srv/jupyterhub/key.pem"
+          },
+          {
+            "name": "JUPYTERHUB_SSL_CERT",
+            "value": "/srv/jupyterhub/cert.pem"
+          },
+          {
+            "name": "JUPYTERHUB_API_TOKEN",
+            "value": "mysecretauthtoken"
+          },
+          {
+            "name": "JUPYTERHUB_API_URL",
+            "value": "http://jupyterhub:8001/hub/api"
+          },
+          {
+            "name": "JUPYTERHUB_CRYPT_KEY",
+            "value": "mysecretkey"
+          }
+        ],
+        "essential": true
+      }
+    ],
+    "volumes": [
+      {
+        "name": "jupyterhub",
+        "host": {}
+      }
+    ]
+  }
+  {
+    "containerDefinitions": [
+      {
+        "name": "notebook",
+        "image": "jupyter/scipy-notebook",
+        "portMappings": [
+          {
+            "containerPort": 8888,
+            "hostPort": 0,
+            "protocol": "tcp"
+          }
+        ],
+        "mountPoints": [
+          {
+            "containerPath": "/home/jovyan/work",
+            "sourceVolume": "notebooks"
+          }
+        ],
+        "environment": [
+          {
+            "name": "JUPYTERHUB_API_TOKEN",
+            "value": "mysecretauthtoken"
+          },
+          {
+            "name": "JUPYTERHUB_API_URL",
+            "value": "http://jupyterhub:8001/hub/api"
+          },
+          {
+            "name": "JUPYTERHUB_SERVICE_NAME",
+            "value": "notebook"
+          }
+        ],
+        "essential": true
+      }
+    ],
+    "volumes": [
+      {
+        "name": "notebooks",
+        "host": {}
+      }
+    ]
+  }
+
+  {
+    "containerDefinitions": [
+      {
+        "name": "proxy",
+        "image": "jupyterhub/configurable-http-proxy",
+        "portMappings": [
+          {
+            "containerPort": 8000,
+            "hostPort": 0,
+            "protocol": "tcp"
+          }
+        ],
+        "environment": [
+          {
+            "name": "CONFIGPROXY_AUTH_TOKEN",
+            "value": "mysecretauthtoken"
+          },
+          {
+            "name": "CONFIGPROXY_API_URL",
+            "value": "http://jupyterhub:8001"
+          }
+        ],
+        "essential": true
+      }
+    ]
+  }
+  
