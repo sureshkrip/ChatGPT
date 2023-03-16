@@ -1,0 +1,30 @@
+import boto3
+
+client = boto3.client('cloudwatch')
+
+response = client.get_metric_data(
+    MetricDataQueries=[
+        {
+            'Id': 'm1',
+            'MetricStat': {
+                'Metric': {
+                    'Namespace': 'AWS/EC2',
+                    'MetricName': 'CPUUtilization',
+                    'Dimensions': [
+                        {
+                            'Name': 'InstanceId',
+                            'Value': 'i-1234567890abcdef0'
+                        },
+                    ]
+                },
+                'Period': 300,
+                'Stat': 'Average',
+                'Unit': 'Percent'
+            },
+        },
+    ],
+    StartTime='2022-03-01T00:00:00Z',
+    EndTime='2022-03-02T00:00:00Z',
+)
+
+print(response)
