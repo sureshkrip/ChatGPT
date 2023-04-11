@@ -1,0 +1,22 @@
+
+
+ChatGPT
+
+Contains information related to LLM
+
+https://docs.google.com/spreadsheets/d/1O5KVQW1Hx5ZAkcg8AIRjbQLQzx2wVaLl0SqUu-ir9Fs/edit#gid=1158069878
+
+Open-Assistant alternate to ChatGPT
+https://www.youtube.com/watch?v=8gVYC_QX1DI
+
+LLM
+https://www.reddit.com/r/MachineLearning/comments/zstequ/d_when_chatgpt_stops_being_free_run_sota_llm_in/
+
+
+GPT-2 Simple: This is a lightweight version of the GPT-2 language model, which was trained on a large corpus of text and is capable of generating human-like text. GPT-2 Simple is a more lightweight version that can be trained on a smaller dataset and is suitable for use on smaller devices. It is implemented in Python using TensorFlow.
+
+OpenAI GPT: This is an open source implementation of the GPT language model, which was developed by OpenAI. It is capable of generating natural language text and has been trained on a large corpus of text. It is implemented in Python using PyTorch.
+
+Hugging Face Transformers: This is a library of pre-trained transformer models for natural language processing tasks, including language modeling, machine translation, and question answering. The models are pre-trained on large datasets and can be fine-tuned on smaller datasets for specific tasks. The library is implemented in Python using PyTorch and TensorFlow.
+
+AllenNLP: This is a library of pre-trained natural language processing models, including language models, named entity recognition, and sentiment analysis. The library is designed for use in research and includes several state-of-the-art models for natural language processing tasks. It is implemented in Python using PyTorch.
