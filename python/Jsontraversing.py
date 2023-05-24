@@ -23,3 +23,20 @@ def traverse(data):
 json_string = '{"a": {"b": {"c": 1, "d": 2}, "e": [1, 2, 3]}, "f": {"g": 1}}'
 data = json.loads(json_string)
 print(traverse(data))
+
+
+import json
+
+def count_children(json_object):
+    if isinstance(json_object, dict):
+        return sum(count_children(v) for v in json_object.values()) + len(json_object)
+    elif isinstance(json_object, list):
+        return sum(count_children(x) for x in json_object) + len(json_object)
+    else:
+        return 0  # Base case: if not dict or list, it has no children
+
+# your provided JSON string
+json_string = '{ "a": {"b": [{ "c":1, "b": [{"d": 2}], "e": [{"f": 3}] }]}}'
+data = json.loads(json_string)
+
+print(count_children(data))
