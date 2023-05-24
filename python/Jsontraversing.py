@@ -69,3 +69,26 @@ sums = sum_counts(counts)
 
 print(sums)
 
+
+import json
+
+def count_children(json_object, parent_key=None):
+    counts = {}
+    
+    if isinstance(json_object, dict):
+        for key, value in json_object.items():
+            if isinstance(value, dict):
+                counts.update(count_children(value, key))
+            elif isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict):
+                        counts.update(count_children(item, key))
+            counts[parent_key] = counts.get(parent_key, 0) + 1
+    return counts
+
+json_string = '{ "a": {"b": [{ "c":1, "b": [{"d": 2}], "e": [{"f": 3}] }]}}'
+data = json.loads(json_string)
+
+print(count_children(data))
+
+
