@@ -31,3 +31,36 @@ prefix = "your_directory" # replace with your directory in bucket
 zip_file_name = "my_zip_file.zip" # replace with the name you want for your zip file
 
 zip_s3_bucket_files(bucket_name, prefix, zip_file_name)
+
+
+
+
+
+
+
+
+
+
+
+
+import awswrangler as wr
+
+def read_csv_files(bucket, prefix):
+    s3 = boto3.resource('s3')
+    my_bucket = s3.Bucket(bucket)
+
+    dfs = []
+    for object in my_bucket.objects.filter(Prefix=prefix):
+        if object.key.endswith('.csv'):  # ignore files that are not .csv
+            df = wr.s3.read_csv(f's3://{bucket}/{object.key}')
+            dfs.append(df)
+
+    # Concatenate all dataframes into one
+    all_data = pd.concat(dfs, ignore_index=True)
+    
+    return all_data
+
+bucket = 'my-bucket'
+prefix = 'my-directory/'
+
+all_data = read_csv_files(bucket, prefix)
